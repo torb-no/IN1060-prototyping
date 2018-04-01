@@ -13,7 +13,13 @@
 
 struct PainterMovement {
     float top, right, bottom, left;
-    // TODO: flip/reverse method
+    
+    void operator*=(const float multiplier) {
+        top *= multiplier;
+        right *= multiplier;
+        bottom *= multiplier;
+        left *= multiplier;
+    };
 };
 
 class Painter {

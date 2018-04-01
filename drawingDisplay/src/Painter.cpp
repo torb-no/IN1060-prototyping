@@ -26,4 +26,5 @@ void Painter::draw() {
 
 void Painter::setMovement(PainterMovement _movement) {
     movement = _movement;
+//    movement *= -1;
 }
