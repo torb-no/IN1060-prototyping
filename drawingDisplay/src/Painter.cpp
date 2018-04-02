@@ -7,24 +7,54 @@
 
 #include "Painter.hpp"
 
-Painter::Painter() {
-    pos.x = ofGetWidth() / 2;
-    pos.y = ofGetHeight() / 2;
-    movement =  { 0, 0, 0, 0 };
-}
+Painter::Painter() :
+    movement(0, 0, 0, 0),
+    pos(ofGetWidth() / 2, ofGetHeight() / 2),
+    ppsTopToDown(0, ofGetWidth(), -5, -5, 0, PPS_BASE_SPEED),
+    ppsRightToLeft(ofGetWidth()-5, ofGetWidth()-5, 0, ofGetHeight(), -PPS_BASE_SPEED, 0),
+    ppsBottomToUp(0, ofGetWidth(), ofGetHeight()+5, ofGetHeight()+5, 0, -PPS_BASE_SPEED),
+    ppsLeftToRight(-5, -5, 0, ofGetHeight(), PPS_BASE_SPEED, 0)
+{ }
 
 void Painter::update() {
-    pos.x += movement.left;
-    pos.x += movement.right;
-    pos.y += movement.top;
-    pos.y += movement.bottom;
+    pos.x += movement.fromLeft;
+    pos.x += movement.fromRight;
+    pos.y += movement.fromTop;
+    pos.y += movement.fromBottom;
+    
+    ppsTopToDown.update();
+    ppsRightToLeft.update();
+    ppsBottomToUp.update();
+    ppsLeftToRight.update();
 }
 
 void Painter::draw() {
+    ofClear(0);
+    
+    ofSetColor(255, 255, 255, 255);
     ofDrawEllipse(pos, 20, 20);
+    
+    // EDGE BOXES, FOR DEBUG PURPOSES
+//    ofDrawRectangle(0, 0, ofGetWidth(), movement.fromTop*8);
+//    ofDrawRectangle(ofGetWidth() + movement.fromRight*8, 0, -movement.fromRight*8, ofGetHeight());
+//    ofDrawRectangle(0, ofGetHeight() + movement.fromBottom*8, ofGetWidth(), -movement.fromBottom*8);
+//    ofDrawRectangle(0, 0, movement.fromLeft*8, ofGetHeight());
+    
+    ppsTopToDown.draw();
+    ppsRightToLeft.draw();
+    ppsBottomToUp.draw();
+    ppsLeftToRight.draw();
 }
 
-void Painter::setMovement(PainterMovement _movement) {
+void Painter::setMovement(PushPull _movement) {
     movement = _movement;
-//    movement *= -1;
+    ppsTopToDown.setPush(movement.fromTop);
+    ppsRightToLeft.setPush(movement.fromRight);
+    ppsBottomToUp.setPush(movement.fromBottom);
+    ppsLeftToRight.setPush(movement.fromLeft);
 }
+
+
+
+
+

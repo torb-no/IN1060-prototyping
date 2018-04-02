@@ -10,26 +10,21 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-
-struct PainterMovement {
-    float top, right, bottom, left;
-    
-    void operator*=(const float multiplier) {
-        top *= multiplier;
-        right *= multiplier;
-        bottom *= multiplier;
-        left *= multiplier;
-    };
-};
+#include "PushPull.hpp"
+#include "PushParticleSystem.hpp"
 
 class Painter {
     ofVec2f pos;
-    PainterMovement movement;
+    PushPull movement;
+    PushParticleSystem ppsTopToDown;
+    PushParticleSystem ppsRightToLeft;
+    PushParticleSystem ppsBottomToUp;
+    PushParticleSystem ppsLeftToRight;
 public:
     Painter();
     void update();
     void draw();
-    void setMovement(PainterMovement _movement);
+    void setMovement(PushPull _movement);
     void setMovement(float top, float right, float bottom, float left);
 };
 
