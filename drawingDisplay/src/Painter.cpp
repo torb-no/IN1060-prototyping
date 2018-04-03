@@ -9,6 +9,7 @@
 
 Painter::Painter() :
     movement(0, 0, 0, 0),
+    prevPos(ofGetWidth() / 2, ofGetHeight() / 2),
     pos(ofGetWidth() / 2, ofGetHeight() / 2),
     ppsTopToDown(0, ofGetWidth(), -5, -5, 0, PPS_BASE_SPEED),
     ppsRightToLeft(ofGetWidth()-5, ofGetWidth()-5, 0, ofGetHeight(), -PPS_BASE_SPEED, 0),
@@ -17,10 +18,13 @@ Painter::Painter() :
 { }
 
 void Painter::update() {
+    prevPos = pos;
     pos.x += movement.fromLeft;
     pos.x += movement.fromRight;
     pos.y += movement.fromTop;
     pos.y += movement.fromBottom;
+    
+    canvas.update(prevPos, pos);
     
     ppsTopToDown.update();
     ppsRightToLeft.update();
@@ -30,9 +34,12 @@ void Painter::update() {
 
 void Painter::draw() {
     ofClear(0);
+//    ofClear(255, 0, 0);
+    
+    canvas.draw();
     
     ofSetColor(255, 255, 255, 255);
-    ofDrawEllipse(pos, 20, 20);
+    ofDrawEllipse(pos, 3, 3);
     
     // EDGE BOXES, FOR DEBUG PURPOSES
 //    ofDrawRectangle(0, 0, ofGetWidth(), movement.fromTop*8);

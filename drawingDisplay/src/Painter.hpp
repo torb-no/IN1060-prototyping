@@ -12,10 +12,13 @@
 #include "ofMain.h"
 #include "PushPull.hpp"
 #include "PushParticleSystem.hpp"
+#include "GlowingCanvas.hpp"
 
 class Painter {
     ofVec2f pos;
+    ofVec2f prevPos;
     PushPull movement;
+    GlowingCanvas canvas;
     PushParticleSystem ppsTopToDown;
     PushParticleSystem ppsRightToLeft;
     PushParticleSystem ppsBottomToUp;

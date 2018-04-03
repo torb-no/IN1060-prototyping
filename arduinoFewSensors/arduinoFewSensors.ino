@@ -11,33 +11,44 @@ Ultrasonic ultraTop(3); // D3
 Ultrasonic ultraBot(7); // D7
 Ultrasonic ultraLeft(8); // D8
 Ultrasonic ultraRight(6); // D6
+
+#define ULTRA_LIMIT_LEN 35
+#define CMD_MAX_VAL 250
+
+#define CMD_TOP 251
+#define CMD_RIGHT 252
+#define CMD_BOTTOM 253
+#define CMD_LEFT 254
+#define CMD_END -255
             
 void setup() {
   Serial.begin(9600);
 }
 
-// Serial communication format
-// s T r1 rn R r1 rn B b1 bn L l1 lb \n
-
-// Better format?
-// D v1 , v2 ... , vn \n
-// Where D is one of T, R, B, L (refering to top, right, bottom, left)
-// and v1, v2, ... vn are sensor values on the same direction
+// State machine based format
+// Any value defined in CMD_ is sets a mode or is a command
+// All others are assumed to be arguments in current mode/command
 
 void loop() {
-  Serial.print("T");
-  Serial.println(ultraTop.MeasureInCentimeters());
-  
-  Serial.print("R");
-  Serial.println(ultraRight.MeasureInCentimeters());
-  
-  Serial.print("B");
-  Serial.println(ultraBot.MeasureInCentimeters());
-  
-  Serial.print("L");
-  Serial.println(ultraLeft.MeasureInCentimeters());
+  Serial.write(CMD_TOP);
+  writeDistance(ultraTop.MeasureInCentimeters());
 
-  // TODO: Ikke så bra teknikk, bruke annen timing greie
-  // (ref. oblig om debounce)
-  delay(50);
+  Serial.write(CMD_RIGHT);
+  writeDistance(ultraRight.MeasureInCentimeters());
+
+  Serial.write(CMD_BOTTOM);
+  writeDistance(ultraBot.MeasureInCentimeters());
+
+  Serial.write(CMD_LEFT);
+  writeDistance(ultraLeft.MeasureInCentimeters());
+
+//  Serial.write(CMD_END); // Do we need this?
+//  delay(50);
 }
+
+void writeDistance(long distance) {
+  unsigned char distByte = ULTRA_LIMIT_LEN - min(distance, ULTRA_LIMIT_LEN);
+  Serial.write(distByte);
+}
+
+
