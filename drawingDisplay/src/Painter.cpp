@@ -55,8 +55,9 @@ void Painter::draw() {
     
     canvas.draw();
     
-    ofSetColor(255, 255, 255, 255);
-    ofDrawEllipse(pos, 3, 3);
+    // DEBUG POINTER POINT
+//    ofSetColor(255, 255, 255, 255);
+//    ofDrawEllipse(pos, 3, 3);
     
 //    pushGradient.draw();
     

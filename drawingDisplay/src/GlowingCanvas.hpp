@@ -13,9 +13,9 @@
 #include "ofxGuassian.hpp"
 
 class GlowingCanvas {
-    ofFbo glowCanvas;
+//    ofFbo glowCanvas;
     ofFbo mainCanvas;
-    ofxGuassian generator;
+    ofxGuassian gen;
 public:
     GlowingCanvas();
     void update(ofVec2f prevPos, ofVec2f pos);
