@@ -18,19 +18,19 @@ class Painter {
     ofVec2f pos;
     ofVec2f prevPos;
     PushPull movement;
-    GlowingCanvas canvas;
     
+    GlowingCanvas canvas;
     
     PushParticleSystem ppsTopToDown;
     PushParticleSystem ppsRightToLeft;
     PushParticleSystem ppsBottomToUp;
     PushParticleSystem ppsLeftToRight;
     
-    enum gradientDirection {
-        leftToRight, topToDown
-    };
+    ofImage outerLight;
+    ofImage innerLight;
+    ofImage shineYouCrazyDiamond;
     
-    void drawPushGradient(float x, float y, float w, float h, gradientDirection direction, int startOpacity, int endOpacity, float strength);
+    void drawPositionPoint();
 public:
     Painter();
     void update();
@@ -38,6 +38,7 @@ public:
     void setMovement(PushPull _movement);
     void setMovement(float top, float right, float bottom, float left);
     void clear();
+
 };
 
 #endif /* Painter_hpp */

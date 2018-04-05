@@ -16,39 +16,21 @@ PushParticleSystem::PushParticleSystem(float _xStartMin, float _xStartMax, float
     baseVelocity.y = yBaseVelocity;
     
     particles.assign(250, Particle());
+    ballOfLight.load("ballOfLight.png");
 }
 
 void PushParticleSystem::draw() {
     for (auto & p : particles) {
         if (p.energy > 0) {
-            // TODO: Opacity and size based on energy
-            // TODO: Replace with special effect image
-            
-            ofSetColor(0, 30, 255, p.energy);
-            for (int i=0; i<3; i++) {
-                float x = gen.getNormal(4, p.position.x);
-                float y = gen.getNormal(4, p.position.y);
-                ofDrawEllipse(x, y, 1, 1);
-                ofDrawEllipse(x, y, 2, 2);
-                ofDrawEllipse(x, y, 4, 4);
-                ofDrawEllipse(x, y, 6, 6);
-            }
-            
-            ofSetColor(200, 255, 255, p.energy);
-            ofDrawEllipse(p.position, 2, 2);
-            ofDrawEllipse(p.position, 4, 4);
-            
+            ofSetColor(200, 200, 255, p.energy);
+            ballOfLight.draw(p.position.x-ballOfLight.getWidth()/2, p.position.y-ballOfLight.getHeight()/2);
         }
     }
 }
 
 void PushParticleSystem::setPush(float amount) {
-//    speed = std::abs(amount) * 2;
-//    if (speed < 0.25) speed = 0.25;
-//    intensity = ofMap(speed, 0, 35, 0, 120);
-    
     if (amount < 0) amount *= -1;
-    int particlesToAdd = (int) (amount * 31);
+    int particlesToAdd = (int) (amount * 3);
     int added = 0;
     for (auto & p : particles) {
         if (added >= particlesToAdd) break;
@@ -66,7 +48,7 @@ void PushParticleSystem::update() {
     for (auto & p : particles) {
         if (p.energy > 0) {
             p.position += baseVelocity;
-            p.energy -= 5;
+            p.energy -= 7;
         }
     }
 }

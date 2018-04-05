@@ -15,10 +15,6 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
-#include "ofxEasing.h"
-#include "ofxGuassian.hpp"
-
-using namespace ofxeasing;
 
 #define PPS_BASE_SPEED 3
 
@@ -35,6 +31,8 @@ class PushParticleSystem {
     ofVec2f baseVelocity;
     float intensity;
     float speed;
+    
+    ofImage ballOfLight;
 public:
     PushParticleSystem(float _xStartMin, float _xStartMax, float _yStartMin, float _yStartMax, float xBaseVelocity, float yBaseVelocity);
     void draw();

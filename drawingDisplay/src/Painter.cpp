@@ -17,6 +17,10 @@ Painter::Painter() :
     ppsLeftToRight(-5, -5, 0, ofGetHeight(), PPS_BASE_SPEED, 0)
 {
     ofEnableBlendMode(OF_BLENDMODE_ADD);
+    
+    innerLight.load("innerCyanLight.png");
+    outerLight.load("outerBlueLight.png");
+    shineYouCrazyDiamond.load("shineYouCrazyDiamond.png");
 }
 
 void Painter::update() {
@@ -67,49 +71,15 @@ void Painter::draw() {
 //    ofDrawRectangle(0, ofGetHeight() + movement.fromBottom*8, ofGetWidth(), -movement.fromBottom*8);
 //    ofDrawRectangle(0, 0, movement.fromLeft*8, ofGetHeight());
     
-//    constexpr float gradientLength = 75;
-//    drawPushGradient(0, 0, ofGetWidth(), gradientLength, topToDown, 255, 0, movement.fromTop);
-//    drawPushGradient(ofGetWidth()-gradientLength, 0, gradientLength, ofGetHeight(), leftToRight, 0, 255, -movement.fromRight);
-//    drawPushGradient(0, ofGetHeight()-gradientLength, ofGetWidth(), gradientLength, topToDown, 0, 255, -movement.fromBottom);
-//    drawPushGradient(0, 0, gradientLength, ofGetHeight(), leftToRight, 255, 0, movement.fromLeft);
-    
-//    drawPushGradient(0, 0, gradientWidth, ofGetHeight(), xAxis, 0, 255, movement.fromLeft);
-//    drawPushGradient(ofGetWidth()-gradientWidth, 0, gradientWidth, ofGetHeight(), xAxis, 0, 255, -movement.fromRight);
-    
     ppsTopToDown.draw();
     ppsRightToLeft.draw();
     ppsBottomToUp.draw();
     ppsLeftToRight.draw();
     
-    // DEBUG POINTER POINT
-    ofSetColor(150, 150, 255, 255);
-    ofDrawEllipse(pos, 10, 10);
-}
-
-void Painter::drawPushGradient(float xPos, float yPos, float w, float h, gradientDirection direction, int startOpacity, int endOpacity, float strength) {
-    ofColor start, end;
-    float strengthScaled = ofMap(strength, 0, 2, 0, 1);
-    if (strengthScaled > 1) strengthScaled = 1;
-    start.set(150, 150, 255, startOpacity * strengthScaled);
-    end.set(150, 150, 255, endOpacity * strengthScaled);
-    
-    float xEnd = xPos + w;
-    float yEnd = yPos + h;
-    
-    if (direction == leftToRight) {
-        int steps = xEnd - xPos;
-        for (float i=0; i<=steps; i++) {
-            ofSetColor(start.getLerped(end, i/steps));
-            ofDrawLine(xPos+i, yPos, xPos+i, yEnd);
-        }
-    }
-    else if (direction == topToDown) {
-        int steps = yEnd - yPos;
-        for (float i=0; i<=steps; i++) {
-            ofSetColor(start.getLerped(end, i/steps));
-            ofDrawLine(xPos, yPos+i, xEnd, yPos+i);
-        }
-    }
+//    // DEBUG POINTER POINT
+//    ofSetColor(150, 150, 255, 255);
+//    ofDrawEllipse(pos, 10, 10);
+    drawPositionPoint();
 }
 
 void Painter::setMovement(PushPull _movement) {
@@ -121,8 +91,28 @@ void Painter::setMovement(PushPull _movement) {
     ppsLeftToRight.setPush(movement.fromLeft);
 }
 
-
 void Painter::clear() {
     canvas.clear();
 }
+
+void Painter::drawPositionPoint() {
+    int moveStrength = (int) ofDist(prevPos.x, prevPos.y, pos.x, pos.y) * 3;
+    if (moveStrength > 5) moveStrength = 5;
+    
+    ofSetColor(255, 255, 255, ofRandom(80, 120) + moveStrength * 10);
+    outerLight.draw(pos.x-outerLight.getWidth()/2, pos.y-outerLight.getHeight()/2);
+    
+    ofSetColor(255, 255, 255, ofRandom(90,100) + moveStrength * 10);
+    innerLight.draw(pos.x-innerLight.getWidth()/2, pos.y-innerLight.getHeight()/2);
+    
+    ofSetColor(255, 255, 255, ofRandom(40,60) + moveStrength * 5);
+    shineYouCrazyDiamond.draw(pos.x-(shineYouCrazyDiamond.getWidth()/2), pos.y-(shineYouCrazyDiamond.getHeight()/2));
+}
+
+
+
+
+
+
+
 
