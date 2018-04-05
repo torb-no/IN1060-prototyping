@@ -37,6 +37,7 @@ public:
     void draw();
     void setMovement(PushPull _movement);
     void setMovement(float top, float right, float bottom, float left);
+    void clear();
 };
 
 #endif /* Painter_hpp */

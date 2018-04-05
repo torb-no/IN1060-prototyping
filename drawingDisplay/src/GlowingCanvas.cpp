@@ -14,12 +14,12 @@ GlowingCanvas::GlowingCanvas() {
 }
 
 void GlowingCanvas::clear() {
-//    glowCanvas.begin();
-//    ofClear(0);
-//    glowCanvas.end();
-    
     mainCanvas.begin();
     ofClear(0,0,0,0);
+    
+    ofSetColor(0);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    ofClearAlpha();
     mainCanvas.end();
 }
 

@@ -25,20 +25,20 @@ void Painter::update() {
     pos.y += movement.fromBottom;
     
     if (pos.x > ofGetWidth()) {
-        prevPos -= ofGetWidth();
-        pos.x -= ofGetWidth();
+        prevPos.x = 0;
+        pos.x = 0;
     }
     else if (pos.x < 0) {
-        prevPos += ofGetWidth();
-        pos.x += ofGetWidth();
+        prevPos.x = ofGetWidth();
+        pos.x = ofGetWidth();
     }
     if (pos.y > ofGetHeight()) {
-        pos.y -= ofGetHeight();
-        pos.y -= ofGetHeight();
+        prevPos.y = 0;
+        pos.y = 0;
     } 
     else if (pos.y < 0) {
-        prevPos.y += ofGetWidth();
-        pos.y += ofGetWidth();
+        prevPos.y = ofGetHeight();
+        pos.y = ofGetHeight();
     }
     
     canvas.update(prevPos, pos);
@@ -55,9 +55,7 @@ void Painter::draw() {
     
     canvas.draw();
     
-    // DEBUG POINTER POINT
-//    ofSetColor(255, 255, 255, 255);
-//    ofDrawEllipse(pos, 3, 3);
+
     
 //    pushGradient.draw();
     
@@ -80,6 +78,10 @@ void Painter::draw() {
     ppsRightToLeft.draw();
     ppsBottomToUp.draw();
     ppsLeftToRight.draw();
+    
+    // DEBUG POINTER POINT
+    ofSetColor(150, 150, 255, 255);
+    ofDrawEllipse(pos, 10, 10);
 }
 
 void Painter::drawPushGradient(float xPos, float yPos, float w, float h, gradientDirection direction, int startOpacity, int endOpacity, float strength) {
@@ -110,6 +112,7 @@ void Painter::drawPushGradient(float xPos, float yPos, float w, float h, gradien
 
 void Painter::setMovement(PushPull _movement) {
     movement = _movement;
+    movement *= 1.5;
     ppsTopToDown.setPush(movement.fromTop);
     ppsRightToLeft.setPush(movement.fromRight);
     ppsBottomToUp.setPush(movement.fromBottom);
@@ -117,6 +120,7 @@ void Painter::setMovement(PushPull _movement) {
 }
 
 
-
-
+void Painter::clear() {
+    canvas.clear();
+}
 

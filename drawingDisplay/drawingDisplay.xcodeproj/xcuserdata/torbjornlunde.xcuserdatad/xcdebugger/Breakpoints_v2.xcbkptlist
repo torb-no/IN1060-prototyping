@@ -19,5 +19,53 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/GlowingCanvas.cpp"
+            timestampString = "544631821.20114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "GlowingCanvas::clear()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GlowingCanvas::GlowingCanvas()"
+                  moduleName = "drawingDisplay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/torbjornlunde/Documents/of_v0.9.8_osx_release/apps/IN1060-prototyping/drawingDisplay/src/GlowingCanvas.cpp"
+                  timestampString = "544627440.63755"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "69">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GlowingCanvas::clear()"
+                  moduleName = "drawingDisplay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/torbjornlunde/Documents/of_v0.9.8_osx_release/apps/IN1060-prototyping/drawingDisplay/src/GlowingCanvas.cpp"
+                  timestampString = "544627440.7333111"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
