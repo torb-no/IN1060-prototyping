@@ -8,24 +8,28 @@
 #include "GlowingCanvas.hpp"
 
 GlowingCanvas::GlowingCanvas() {
-//    glowCanvas.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    mainCanvas.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    glowCanvas.allocate(ofGetWidth(), ofGetHeight(), GL_RGB);
+    mainCanvas.allocate(ofGetWidth(), ofGetHeight(), GL_RGB);
     clear();
 }
 
 void GlowingCanvas::clear() {
-    mainCanvas.begin();
-    ofClear(0,0,0,0);
+    glowCanvas.begin();
+//    ofSetColor(0);
+    ofClear(0);
+    glowCanvas.end();
     
-    ofSetColor(0);
-    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
-    ofClearAlpha();
+    mainCanvas.begin();
+    ofClear(0);
+//    ofSetColor(0);
+//    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+//    ofClearAlpha();
     mainCanvas.end();
 }
 
 void GlowingCanvas::update(ofVec2f prevPos, ofVec2f pos) {
-    int moveStrength = (int) ofDist(prevPos.x, prevPos.y, pos.x, pos.y) * 5;
-    if (moveStrength < 1) moveStrength = 1;
+    int moveStrength = (int) ofDist(prevPos.x, prevPos.y, pos.x, pos.y) * 2;
+//    if (moveStrength < 1) moveStrength = 1;
     
 //    glowCanvas.begin();
 //
@@ -53,16 +57,35 @@ void GlowingCanvas::update(ofVec2f prevPos, ofVec2f pos) {
 //
 //    glowCanvas.end();
     
-    mainCanvas.begin();
-    
-    ofSetColor(255, 255, 255, 150);
-    for (int i=0; i<2; i++) {
-        float x = gen.getNormal(3, pos.x);
-        float y = gen.getNormal(3, pos.y);
-//        ofDrawRectangle(x, y, 1, 1);
-        ofDrawEllipse(x, y, 2, 2);
+    glowCanvas.begin();
+    ofSetColor(0, 0, 150, 15);
+    for (int i=0; i<moveStrength*5; i++) {
+        float x = gen.getNormal(20, pos.x);
+        float y = gen.getNormal(20, pos.y);
+        float size = ofRandom(5, 10);
+        ofDrawEllipse(x, y, size, size);
     }
     
+    ofSetColor(50, 150, 255, 50);
+    for (int i=0; i<moveStrength*2; i++) {
+        float x = gen.getNormal(5, pos.x);
+        float y = gen.getNormal(5, pos.y);
+        float size = ofRandom(1, 3);
+        ofDrawEllipse(x, y, size, size);
+    }
+    
+    
+    glowCanvas.end();
+    
+    mainCanvas.begin();
+    
+//    ofSetColor(255, 150);
+//    for (int i=0; i<moveStrength; i++) {
+//        float x = gen.getNormal(2, pos.x) * 1.05;
+//        float y = gen.getNormal(2, pos.y) * 1.05;
+//        ofDrawEllipse(x, y, 2, 2);
+//    }
+//
     
     // SIMPLE LINE
 //    ofSetColor(255,255,255,255);
@@ -74,6 +97,9 @@ void GlowingCanvas::update(ofVec2f prevPos, ofVec2f pos) {
 
 void GlowingCanvas::draw() {
     ofSetColor(255,255,255,255);
-//    glowCanvas.draw(0, 0);
+    glowCanvas.draw(0, 0);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
     mainCanvas.draw(0, 0);
+    
+//    ofEnableBlendMode(OF_BLENDMODE_DISABLED);
 }

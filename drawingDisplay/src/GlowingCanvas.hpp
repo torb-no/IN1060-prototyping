@@ -13,7 +13,7 @@
 #include "ofxGuassian.hpp"
 
 class GlowingCanvas {
-//    ofFbo glowCanvas;
+    ofFbo glowCanvas;
     ofFbo mainCanvas;
     ofxGuassian gen;
 public:
