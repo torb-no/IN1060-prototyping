@@ -2,9 +2,6 @@
 
 #include "ofMain.h"
 #include "Painter.hpp"
-#include <iostream>
-
-using std::cout;
 
 #define CMD_TOP 251
 #define CMD_RIGHT 252
@@ -12,11 +9,12 @@ using std::cout;
 #define CMD_LEFT 254
 #define CMD_NONE 255
 
-#define DISTANCE_MULTIPLIER 0.25
+#define DISTANCE_MULTIPLIER 0.05
 
 class ofApp : public ofBaseApp {
     ofSerial serial;
     Painter painter;
+    PushPull push;
 public:
     void setup();
     void update();

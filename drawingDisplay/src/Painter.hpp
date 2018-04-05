@@ -19,10 +19,18 @@ class Painter {
     ofVec2f prevPos;
     PushPull movement;
     GlowingCanvas canvas;
+    
+    
     PushParticleSystem ppsTopToDown;
     PushParticleSystem ppsRightToLeft;
     PushParticleSystem ppsBottomToUp;
     PushParticleSystem ppsLeftToRight;
+    
+    enum gradientDirection {
+        leftToRight, topToDown
+    };
+    
+    void drawPushGradient(float x, float y, float w, float h, gradientDirection direction, int startOpacity, int endOpacity, float strength);
 public:
     Painter();
     void update();

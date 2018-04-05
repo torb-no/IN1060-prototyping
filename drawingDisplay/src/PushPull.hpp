@@ -16,6 +16,13 @@ struct PushPull {
     float fromBottom;
     float fromLeft;
     
+    PushPull() :
+        fromTop(0),
+        fromRight(0),
+        fromBottom(0),
+        fromLeft(0)
+    {};
+    
     PushPull(float fromTop, float fromRight, float fromBottom, float fromLeft) :
         fromTop(fromTop),
         fromRight(fromRight),

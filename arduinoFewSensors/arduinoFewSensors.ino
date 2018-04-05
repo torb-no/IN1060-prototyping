@@ -19,10 +19,13 @@ Ultrasonic ultraRight(6); // D6
 #define CMD_RIGHT 252
 #define CMD_BOTTOM 253
 #define CMD_LEFT 254
-#define CMD_END -255
+#define CMD_END 255
+
+unsigned char mode;
             
 void setup() {
   Serial.begin(9600);
+  mode = CMD_TOP;
 }
 
 // State machine based format
@@ -30,17 +33,37 @@ void setup() {
 // All others are assumed to be arguments in current mode/command
 
 void loop() {
-  Serial.write(CMD_TOP);
-  writeDistance(ultraTop.MeasureInCentimeters());
-
-  Serial.write(CMD_RIGHT);
-  writeDistance(ultraRight.MeasureInCentimeters());
-
-  Serial.write(CMD_BOTTOM);
-  writeDistance(ultraBot.MeasureInCentimeters());
-
-  Serial.write(CMD_LEFT);
-  writeDistance(ultraLeft.MeasureInCentimeters());
+  Serial.write(mode);
+  switch (mode) {
+    case CMD_TOP: 
+      writeDistance(ultraTop.MeasureInCentimeters());
+      mode = CMD_RIGHT;
+      break;
+    case CMD_RIGHT:
+      writeDistance(ultraRight.MeasureInCentimeters();
+      mode = CMD_BOTTOM;
+      break;
+    case CMD_BOTTOM:
+      writeDistance(ultraBot.MeasureInCentimeters());
+      mode = CMD_LEFT;
+      break;
+    case CMD_LEFT:
+      writeDistance(ultraLeft.MeasureInCentimeters());
+      mode = CMD_TOP;
+      break;
+  }
+  
+//  Serial.write(CMD_TOP);
+//  writeDistance(ultraTop.MeasureInCentimeters());
+//
+//  Serial.write(CMD_RIGHT);
+//  writeDistance(ultraRight.MeasureInCentimeters());
+//
+//  Serial.write(CMD_BOTTOM);
+//  writeDistance(ultraBot.MeasureInCentimeters());
+//
+//  Serial.write(CMD_LEFT);
+//  writeDistance(ultraLeft.MeasureInCentimeters());
 
 //  Serial.write(CMD_END); // Do we need this?
 //  delay(50);

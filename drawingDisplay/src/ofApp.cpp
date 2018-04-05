@@ -13,17 +13,33 @@ void ofApp::update(){
 }
 
 void ofApp::setMovementBasedOnUltrasonic() {
-    PushPull push = {0,0,0,0};
     unsigned char mode = CMD_NONE;
+    bool dataReceived = false;
     
     while (serial.available() > 0) {
+        dataReceived = true;
         unsigned char cmdOrVal = serial.readByte();
         
         switch (cmdOrVal) {
-            case CMD_TOP: mode = CMD_TOP; break;
-            case CMD_RIGHT: mode = CMD_RIGHT; break;
-            case CMD_BOTTOM: mode = CMD_BOTTOM; break;
-            case CMD_LEFT: mode = CMD_LEFT; break;
+            case CMD_TOP:
+                mode = CMD_TOP;
+                push.fromTop = 0;
+                break;
+            case CMD_RIGHT:
+                mode = CMD_RIGHT;
+                push.fromRight = 0;
+                break;
+            case CMD_BOTTOM:
+                mode = CMD_BOTTOM;
+                push.fromBottom = 0;
+                break;
+            case CMD_LEFT:
+                mode = CMD_LEFT;
+                push.fromLeft = 0;
+                break;
+            case CMD_NONE:
+                // do nothing
+                break;
             // Urecognized values are assumed to be values
             default: // VALUE!
                 switch (mode) {
@@ -43,11 +59,12 @@ void ofApp::setMovementBasedOnUltrasonic() {
                 }
                 break;
         }
-        
-    
     }
     
-    painter.setMovement(push);
+    if (dataReceived) {
+        painter.setMovement(push);
+    }
+    
 }
 
 //--------------------------------------------------------------
@@ -68,10 +85,10 @@ void ofApp::keyReleased(int key){
 //--------------------------------------------------------------
 void ofApp::setMovementBasedOnKeys() {
     painter.setMovement({
-         ((float)ofGetKeyPressed('s') + (float)ofGetKeyPressed(OF_KEY_DOWN)),
-        -((float)ofGetKeyPressed('a') + (float)ofGetKeyPressed(OF_KEY_LEFT)),
-        -((float)ofGetKeyPressed('w') + (float)ofGetKeyPressed(OF_KEY_UP)),
-         ((float)ofGetKeyPressed('d') + (float)ofGetKeyPressed(OF_KEY_RIGHT))
+         ((float)ofGetKeyPressed('s')*0.25f + (float)ofGetKeyPressed(OF_KEY_DOWN) *1.75f  ),
+        -((float)ofGetKeyPressed('a')*0.25f + (float)ofGetKeyPressed(OF_KEY_LEFT) *1.75f  ),
+        -((float)ofGetKeyPressed('w')*0.25f + (float)ofGetKeyPressed(OF_KEY_UP)   *1.75f  ),
+         ((float)ofGetKeyPressed('d')*0.25f + (float)ofGetKeyPressed(OF_KEY_RIGHT)*1.75f  )
     });
 }
 

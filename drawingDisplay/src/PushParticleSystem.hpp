@@ -14,21 +14,24 @@
 #include "PushPull.hpp"
 #include <cmath>
 #include <algorithm>
+#include <iostream>
+#include "ofxEasing.h"
+
+using namespace ofxeasing;
 
 #define PPS_BASE_SPEED 3
 
 class PushParticleSystem {
     struct Particle {
         ofVec2f position;
-        float energy;
-//        float energyFade;
-        
+        int energy;
     };
     
     vector<Particle> particles;
     float xStartMin, xStartMax;
     float yStartMin, yStartMax;
     ofVec2f baseVelocity;
+    float intensity;
     float speed;
 public:
     PushParticleSystem(float _xStartMin, float _xStartMax, float _yStartMin, float _yStartMax, float xBaseVelocity, float yBaseVelocity);
