@@ -84,13 +84,10 @@ void ofApp::keyReleased(int key){
     if (key == ' ') {
         painter.clear();
     }
-    
-//    painter.clear();
 }
 
 //--------------------------------------------------------------
 void ofApp::setMovementBasedOnKeys() {
-    
     painter.setMovement({
          ((float)ofGetKeyPressed('s')*0.25f + (float)ofGetKeyPressed(OF_KEY_DOWN) *1.75f  ),
         -((float)ofGetKeyPressed('a')*0.25f + (float)ofGetKeyPressed(OF_KEY_LEFT) *1.75f  ),

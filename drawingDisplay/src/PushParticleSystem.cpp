@@ -15,9 +15,7 @@ PushParticleSystem::PushParticleSystem(float _xStartMin, float _xStartMax, float
     baseVelocity.x = xBaseVelocity;
     baseVelocity.y = yBaseVelocity;
     
-    particles.assign(500, Particle());
-    
-    ofEnableAlphaBlending();
+    particles.assign(250, Particle());
 }
 
 void PushParticleSystem::draw() {
@@ -25,8 +23,21 @@ void PushParticleSystem::draw() {
         if (p.energy > 0) {
             // TODO: Opacity and size based on energy
             // TODO: Replace with special effect image
-            ofSetColor(255, 255, 255, p.energy);
-            ofDrawEllipse(p.position, 5, 5);
+            
+            ofSetColor(0, 30, 255, p.energy);
+            for (int i=0; i<3; i++) {
+                float x = gen.getNormal(4, p.position.x);
+                float y = gen.getNormal(4, p.position.y);
+                ofDrawEllipse(x, y, 1, 1);
+                ofDrawEllipse(x, y, 2, 2);
+                ofDrawEllipse(x, y, 4, 4);
+                ofDrawEllipse(x, y, 6, 6);
+            }
+            
+            ofSetColor(200, 255, 255, p.energy);
+            ofDrawEllipse(p.position, 2, 2);
+            ofDrawEllipse(p.position, 4, 4);
+            
         }
     }
 }
@@ -37,7 +48,7 @@ void PushParticleSystem::setPush(float amount) {
 //    intensity = ofMap(speed, 0, 35, 0, 120);
     
     if (amount < 0) amount *= -1;
-    int particlesToAdd = (int) (amount * 5);
+    int particlesToAdd = (int) (amount * 31);
     int added = 0;
     for (auto & p : particles) {
         if (added >= particlesToAdd) break;
@@ -55,7 +66,7 @@ void PushParticleSystem::update() {
     for (auto & p : particles) {
         if (p.energy > 0) {
             p.position += baseVelocity;
-            p.energy -= 10;
+            p.energy -= 5;
         }
     }
 }

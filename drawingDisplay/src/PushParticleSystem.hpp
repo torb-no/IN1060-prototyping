@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <iostream>
 #include "ofxEasing.h"
+#include "ofxGuassian.hpp"
 
 using namespace ofxeasing;
 
@@ -27,6 +28,7 @@ class PushParticleSystem {
         int energy;
     };
     
+    ofxGuassian gen;
     vector<Particle> particles;
     float xStartMin, xStartMax;
     float yStartMin, yStartMax;

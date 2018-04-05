@@ -15,7 +15,9 @@ Painter::Painter() :
     ppsRightToLeft(ofGetWidth()-5, ofGetWidth()-5, 0, ofGetHeight(), -PPS_BASE_SPEED, 0),
     ppsBottomToUp(0, ofGetWidth(), ofGetHeight()+5, ofGetHeight()+5, 0, -PPS_BASE_SPEED),
     ppsLeftToRight(-5, -5, 0, ofGetHeight(), PPS_BASE_SPEED, 0)
-{ }
+{
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
+}
 
 void Painter::update() {
     prevPos = pos;

@@ -14,7 +14,6 @@
 
 class GlowingCanvas {
     ofFbo glowCanvas;
-    ofFbo mainCanvas;
     ofxGuassian gen;
 public:
     GlowingCanvas();
