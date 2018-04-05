@@ -24,6 +24,23 @@ void Painter::update() {
     pos.y += movement.fromTop;
     pos.y += movement.fromBottom;
     
+    if (pos.x > ofGetWidth()) {
+        prevPos -= ofGetWidth();
+        pos.x -= ofGetWidth();
+    }
+    else if (pos.x < 0) {
+        prevPos += ofGetWidth();
+        pos.x += ofGetWidth();
+    }
+    if (pos.y > ofGetHeight()) {
+        pos.y -= ofGetHeight();
+        pos.y -= ofGetHeight();
+    } 
+    else if (pos.y < 0) {
+        prevPos.y += ofGetWidth();
+        pos.y += ofGetWidth();
+    }
+    
     canvas.update(prevPos, pos);
     
     ppsTopToDown.update();
