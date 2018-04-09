@@ -20,6 +20,7 @@ PushParticleSystem::PushParticleSystem(float _xStartMin, float _xStartMax, float
 }
 
 void PushParticleSystem::draw() {
+    // Display the particles
     for (auto & p : particles) {
         if (p.energy > 0) {
             ofSetColor(200, 200, 255, p.energy);
@@ -29,6 +30,7 @@ void PushParticleSystem::draw() {
 }
 
 void PushParticleSystem::setPush(float amount) {
+    // Add particles based on how much is pushed from that side
     if (amount < 0) amount *= -1;
     int particlesToAdd = (int) (amount * 2);
     int added = 0;
@@ -45,6 +47,7 @@ void PushParticleSystem::setPush(float amount) {
 }
 
 void PushParticleSystem::update() {
+    // Update every particle in the particle system
     for (auto & p : particles) {
         if (p.energy > 0) {
             p.position += baseVelocity;

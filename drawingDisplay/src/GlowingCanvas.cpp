@@ -10,7 +10,6 @@
 GlowingCanvas::GlowingCanvas() {
     glowCanvas.allocate(ofGetWidth(), ofGetHeight(), GL_RGB);
     clear();
-    
 }
 
 void GlowingCanvas::clear() {
@@ -20,6 +19,9 @@ void GlowingCanvas::clear() {
 }
 
 void GlowingCanvas::update(ofVec2f prevPos, ofVec2f pos) {
+    // Draw magic/galaxy -esque on the canvas
+    
+    // Draw in proportion to the movement
     int moveStrength = (int) ofDist(prevPos.x, prevPos.y, pos.x, pos.y) * 2;
     
     glowCanvas.begin();

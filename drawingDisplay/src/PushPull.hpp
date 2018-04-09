@@ -11,6 +11,9 @@
 #include <stdio.h>
 
 struct PushPull {
+    
+    // Structure represents how much is "pushed" from a side
+    
     float fromTop;
     float fromRight;
     float fromBottom;

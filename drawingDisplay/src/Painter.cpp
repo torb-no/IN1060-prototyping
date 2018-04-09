@@ -17,7 +17,6 @@ Painter::Painter() :
     ppsLeftToRight(-5, -5, 0, ofGetHeight(), PPS_BASE_SPEED, 0)
 {
     ofEnableBlendMode(OF_BLENDMODE_ADD);
-    
     innerLight.load("innerCyanLight.png");
     outerLight.load("outerBlueLight.png");
     shineYouCrazyDiamond.load("shineYouCrazyDiamond.png");
@@ -30,6 +29,7 @@ void Painter::update() {
     pos.y += movement.fromTop;
     pos.y += movement.fromBottom;
     
+    // Make the pointer come out on the other side if it gets to the edge
     if (pos.x > ofGetWidth()) {
         prevPos.x = 0;
         pos.x = 0;
@@ -47,8 +47,10 @@ void Painter::update() {
         pos.y = ofGetHeight();
     }
     
+    // Update the canvas
     canvas.update(prevPos, pos);
     
+    // Updage push particle sytems
     ppsTopToDown.update();
     ppsRightToLeft.update();
     ppsBottomToUp.update();
@@ -57,29 +59,25 @@ void Painter::update() {
 
 void Painter::draw() {
     ofClear(0);
-//    ofClear(255, 0, 0);
     
     canvas.draw();
-    
-
-    
-//    pushGradient.draw();
-    
-    // EDGE BOXES, FOR DEBUG PURPOSES
-//    ofDrawRectangle(0, 0, ofGetWidth(), movement.fromTop*8);
-//    ofDrawRectangle(ofGetWidth() + movement.fromRight*8, 0, -movement.fromRight*8, ofGetHeight());
-//    ofDrawRectangle(0, ofGetHeight() + movement.fromBottom*8, ofGetWidth(), -movement.fromBottom*8);
-//    ofDrawRectangle(0, 0, movement.fromLeft*8, ofGetHeight());
     
     ppsTopToDown.draw();
     ppsRightToLeft.draw();
     ppsBottomToUp.draw();
     ppsLeftToRight.draw();
     
-//    // DEBUG POINTER POINT
-//    ofSetColor(150, 150, 255, 255);
-//    ofDrawEllipse(pos, 10, 10);
     drawPositionPoint();
+    
+    // EDGE BOXES, FOR DEBUG PURPOSES
+    //    ofDrawRectangle(0, 0, ofGetWidth(), movement.fromTop*8);
+    //    ofDrawRectangle(ofGetWidth() + movement.fromRight*8, 0, -movement.fromRight*8, ofGetHeight());
+    //    ofDrawRectangle(0, ofGetHeight() + movement.fromBottom*8, ofGetWidth(), -movement.fromBottom*8);
+    //    ofDrawRectangle(0, 0, movement.fromLeft*8, ofGetHeight());
+    
+    // DEBUG POINTER POINT
+    //    ofSetColor(150, 150, 255, 255);
+    //    ofDrawEllipse(pos, 10, 10);
 }
 
 void Painter::setMovement(PushPull _movement) {
@@ -96,6 +94,7 @@ void Painter::clear() {
 }
 
 void Painter::drawPositionPoint() {
+    // Draw shiny star to indicate position
     int moveStrength = (int) ofDist(prevPos.x, prevPos.y, pos.x, pos.y) * 3;
     if (moveStrength > 5) moveStrength = 5;
     
