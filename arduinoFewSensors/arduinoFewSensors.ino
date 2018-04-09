@@ -1,6 +1,6 @@
 #include <Ultrasonic.h>
 
-// Code for Arduino UNO + Grove Board + 4 (or more?) Ultrasonic Sensors
+// Code for Arduino UNO + Grove Board + 4 Grove Ultrasonic Distance Sensors
 
 // VIKTIG!
 // IKKE PLUG INN/UT ULTRALYD-SENSORER
@@ -52,21 +52,6 @@ void loop() {
       mode = CMD_TOP;
       break;
   }
-  
-//  Serial.write(CMD_TOP);
-//  writeDistance(ultraTop.MeasureInCentimeters());
-//
-//  Serial.write(CMD_RIGHT);
-//  writeDistance(ultraRight.MeasureInCentimeters());
-//
-//  Serial.write(CMD_BOTTOM);
-//  writeDistance(ultraBot.MeasureInCentimeters());
-//
-//  Serial.write(CMD_LEFT);
-//  writeDistance(ultraLeft.MeasureInCentimeters());
-
-//  Serial.write(CMD_END); // Do we need this?
-//  delay(50);
 }
 
 void writeDistance(long distance) {
