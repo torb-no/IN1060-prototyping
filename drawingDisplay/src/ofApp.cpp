@@ -2,7 +2,16 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    serial.setup("/dev/tty.usbmodemFD121", 9600);
+    for (auto & s : serial.getDeviceList()) {
+        cout << s.getDeviceName() << endl;
+        // Assume that the first we find that starts with
+        // tty.usbmodem we find is the Arduino
+        if (s.getDeviceName().find("tty.usbmodem") == 0) {
+            serial.setup(s.getDeviceID(), 9600);
+            break;
+        }
+    }
+    
 }
 
 //--------------------------------------------------------------

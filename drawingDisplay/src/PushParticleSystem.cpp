@@ -15,7 +15,7 @@ PushParticleSystem::PushParticleSystem(float _xStartMin, float _xStartMax, float
     baseVelocity.x = xBaseVelocity;
     baseVelocity.y = yBaseVelocity;
     
-    particles.assign(250, Particle());
+    particles.assign(350, Particle());
     ballOfLight.load("ballOfLight.png");
 }
 
@@ -30,7 +30,7 @@ void PushParticleSystem::draw() {
 
 void PushParticleSystem::setPush(float amount) {
     if (amount < 0) amount *= -1;
-    int particlesToAdd = (int) (amount * 3);
+    int particlesToAdd = (int) (amount * 2);
     int added = 0;
     for (auto & p : particles) {
         if (added >= particlesToAdd) break;

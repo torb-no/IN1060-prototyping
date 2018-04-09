@@ -15,6 +15,8 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include "ofxGuassian.hpp"
 
 #define PPS_BASE_SPEED 3
 
